@@ -4,12 +4,16 @@ import React from "react";
 const HomeBanner = () => {
   return (
     <div className="flex gap-5 items-center bg-white p-5">
-      <Image
-        src="/learn-online.jpg"
-        alt="online-learner"
-        width={200}
-        height={200}
-      />
+      <div className="relative max-w-[12.5rem] max-h-[12.5rem] w-full h-auto">
+        <Image
+          src="/learn-online.jpg"
+          alt="online learner"
+          width={200}
+          height={200}
+          priority
+          className="w-full h-full object-cover"
+        />
+      </div>
       <div>
         <h2 className="font-bold text-[1.6875rem]">
           Welcome to <span className="text-primary">SevaWo</span> Academy

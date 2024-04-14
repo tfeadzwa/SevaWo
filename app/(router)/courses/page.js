@@ -1,5 +1,7 @@
+"use client";
 import React from "react";
 import HomeBanner from "./_components/HomeBanner";
+import CourseList from "./_components/CourseList";
 
 const Courses = () => {
   return (
@@ -7,6 +9,9 @@ const Courses = () => {
       {/* Left Container */}
       <div className="col-span-2">
         <HomeBanner />
+
+        {/* Course list section */}
+        <CourseList />
       </div>
       {/* Right Container */}
       <div>Right Section</div>
