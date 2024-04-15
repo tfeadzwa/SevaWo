@@ -11,7 +11,7 @@ const HomeBanner = () => {
           width={200}
           height={200}
           priority
-          className="w-full h-full object-cover"
+          className="w-auto h-auto object-cover"
         />
       </div>
       <div>

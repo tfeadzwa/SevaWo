@@ -5,9 +5,9 @@ import CourseList from "./_components/CourseList";
 
 const Courses = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 p-5">
+    <div className="grid grid-cols-1 md:grid-cols-4 p-5">
       {/* Left Container */}
-      <div className="col-span-2">
+      <div className="col-span-3">
         <HomeBanner />
 
         {/* Course list section */}

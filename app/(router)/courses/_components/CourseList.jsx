@@ -1,17 +1,52 @@
 import GlobalApi from "@/app/_utils/GlobalApi";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import CourseItem from "./CourseItem";
 
 const CourseList = () => {
+  const [courseLists, setCourseLists] = useState([]);
+
   useEffect(() => {
     getAllCourses();
   }, []);
 
   const getAllCourses = () => {
     GlobalApi.getAllCourseList().then((resp) => {
-      console.log(resp);
+      setCourseLists(resp?.courseLists);
     });
   };
-  return <div>Course List</div>;
+  return (
+    <div className="bg-white p-5 mt-5 rounded-lg">
+      <div className="flex items-center justify-between">
+        <h2 className="text-[1.25rem] font-bold text-primary">All Courses</h2>
+        <Select>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Filter" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All</SelectItem>
+            <SelectItem value="paid">Paid</SelectItem>
+            <SelectItem value="free">Free</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      {/* Display Course List */}
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 mt-3">
+        {courseLists.map((item, index) => (
+          <div key={index}>
+            <CourseItem course={item} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default CourseList;

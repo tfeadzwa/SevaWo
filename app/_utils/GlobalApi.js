@@ -26,6 +26,9 @@ const getAllCourseList = async () => {
         totalChapters
         tag
         sourceCode
+        banner {
+          url
+        }
       }
     }
   `;
