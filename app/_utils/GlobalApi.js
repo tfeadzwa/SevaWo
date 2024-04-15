@@ -1,4 +1,4 @@
-const { gql, request } = require("graphql-request");
+const { gql, default: request } = require("graphql-request");
 const MASTER_URL =
   "https://api-ap-south-1.hygraph.com/v2/" +
   process.env.NEXT_PUBLIC_HYGRAPH_API_KEY +
@@ -36,6 +36,25 @@ const getAllCourseList = async () => {
   return await request(MASTER_URL, query);
 };
 
+const getSideBanners = async () => {
+  const query = gql`
+    query GetSideBanner {
+      sideBanners {
+        id
+        name
+        banner {
+          id
+          url
+        }
+        url
+      }
+    }
+  `;
+
+  return await request(MASTER_URL, query);
+};
+
 export default {
   getAllCourseList,
+  getSideBanners,
 };

@@ -8,8 +8,8 @@ const HomeBanner = () => {
         <Image
           src="/learn-online.jpg"
           alt="online learner"
-          width={200}
           height={200}
+          width={200}
           priority
           className="w-auto h-auto"
         />

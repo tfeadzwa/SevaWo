@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import Image from "next/image";
 
 const CourseItem = ({ course }) => {
-  console.log(course.chapter);
   return (
     <div className="border rounded-xl hover:shadow-md hover:shadow-purple-300 cursor-pointer">
       <div className="relative max-w-[31.25rem] max-h-[12.5rem] w-full h-auto">
