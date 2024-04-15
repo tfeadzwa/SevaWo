@@ -1,4 +1,11 @@
-import { BadgeIcon, BookOpen, GraduationCap } from "lucide-react";
+import {
+  BadgeIcon,
+  BookOpen,
+  GraduationCap,
+  LayoutGrid,
+  Mail,
+  Store,
+} from "lucide-react";
 import React from "react";
 
 const SideNav = () => {
@@ -10,13 +17,23 @@ const SideNav = () => {
     },
     {
       id: 2,
+      name: "Store",
+      icon: LayoutGrid,
+    },
+    {
+      id: 3,
       name: "Membership",
       icon: BadgeIcon,
     },
     {
-      id: 3,
+      id: 4,
       name: "Be Instructor",
       icon: GraduationCap,
+    },
+    {
+      id: 5,
+      name: "Newsletter",
+      icon: Mail,
     },
   ];
   return (
@@ -26,7 +43,7 @@ const SideNav = () => {
       {menu.map((item, index) => (
         <div
           key={index}
-          className="group flex gap-3 mt-1 p-3 text-gray-500 hover:bg-primary hover:text-white cursor-pointer rounded-md transition-all ease-in-out duration-200"
+          className="group flex gap-3 mt-1 p-3 text-gray-500 hover:bg-primary hover:text-white cursor-pointer rounded-md transition-all ease-in-out duration-200 items-center"
         >
           <item.icon className="group-hover:animate-bounce" />
           <h2>{item.name}</h2>
