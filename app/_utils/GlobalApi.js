@@ -18,6 +18,7 @@ const getAllCourseList = async () => {
           ... on Chapter {
             id
             name
+            youtubeId
             video {
               url
             }
