@@ -1,8 +1,13 @@
+"use client";
 import { Button } from "@/components/ui/button";
+import { UserButton, useUser } from "@clerk/nextjs";
 import { BellDot, Menu, Search } from "lucide-react";
+import Link from "next/link";
 import React from "react";
 
 const Header = () => {
+  const { user, isLoaded } = useUser();
+
   return (
     <div className="px-4 flex bg-white items-center">
       <div className="sm:hidden cursor-pointer hover:text-primary transition-all ease-in-out duration-200">
@@ -19,7 +24,13 @@ const Header = () => {
         </div>
         <div className="flex items-center justify-center gap-4">
           <BellDot className="text-gray-500" />
-          <Button>Get Started</Button>
+          {isLoaded && user ? (
+            <UserButton afterSignOutUrl="/courses" />
+          ) : (
+            <Link href="/sign-up">
+              <Button>Get Started</Button>
+            </Link>
+          )}
         </div>
       </div>
     </div>
