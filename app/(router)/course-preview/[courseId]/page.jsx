@@ -28,7 +28,7 @@ const CoursePreview = ({ params }) => {
         </div>
         {/* Course Content */}
         <div>
-          <CourseEnroll />
+          <CourseEnroll courseInfo={courseInfo} />
           <CourseContent courseInfo={courseInfo} />
         </div>
       </div>
