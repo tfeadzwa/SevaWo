@@ -92,8 +92,34 @@ const getCourseById = async (courseId) => {
   return await request(MASTER_URL, query);
 };
 
+const enrollToCourse = async () => {
+  const query = gql`
+    mutation MyMutation {
+      createUserEnrollCourse(
+        data: {
+          courseId: "asp-net-for-beginners"
+          userEmail: "tfadzwa02@gmail.com"
+          courseList: { connect: { slug: "asp-net-for-beginners" } }
+        }
+      ) {
+        id
+      }
+      publishManyUserEnrollCoursesConnection {
+        edges {
+          node {
+            id
+          }
+        }
+      }
+    }
+  `;
+
+  return await request(MASTER_URL, query);
+};
+
 export default {
   getAllCourseList,
   getSideBanners,
   getCourseById,
+  enrollToCourse,
 };

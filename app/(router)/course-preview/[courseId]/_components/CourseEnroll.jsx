@@ -1,12 +1,31 @@
+import GlobalApi from "@/app/_utils/GlobalApi";
 import { Button } from "@/components/ui/button";
 import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
 
 const CourseEnroll = ({ courseInfo }) => {
+  const router = useRouter();
   const { user } = useUser();
   const member = false;
   const isMember = user && (courseInfo?.free || member);
+
+  const onEnrollToCourse = () => {
+    GlobalApi.enrollToCourse(
+      courseInfo?.slug,
+      user?.primaryEmailAddress?.emailAddress
+    ).then((resp) => {
+      console.log(resp);
+
+      if (resp) {
+        // show toast on successful enroll
+
+        // redirect to course watcher page
+        router.push(`/course-progress/${resp.createUserEnrollCourse?.id}`);
+      }
+    });
+  };
 
   const EnrollButton = ({ children, link }) => (
     <Link href={link || "#"}>
@@ -41,7 +60,10 @@ const CourseEnroll = ({ courseInfo }) => {
           {enrollmentHeading}
         </h2>
         <h2 className="text-white">{enrollmentSubheading}</h2>
-        <EnrollButton link={enrollmentButtonLink}>
+        <EnrollButton
+          link={enrollmentButtonLink}
+          onClick={() => onEnrollToCourse()}
+        >
           {enrollmentButtonText}
         </EnrollButton>
       </div>
