@@ -4,9 +4,12 @@ import CourseVideoDescription from "./_components/CourseVideoDescription";
 import GlobalApi from "@/app/_utils/GlobalApi";
 import CourseEnroll from "./_components/CourseEnroll";
 import CourseContent from "./_components/CourseContent";
+import { useUser } from "@clerk/nextjs";
 
 const CoursePreview = ({ params }) => {
   const [courseInfo, setCourseInfo] = useState();
+  const { user } = useUser();
+  const [isUserAlreadyEnrolled, setIsUserAlreadyEnrolled] = useState(false);
 
   useEffect(() => {
     params && getCourseInfoById();
@@ -16,6 +19,18 @@ const CoursePreview = ({ params }) => {
   const getCourseInfoById = () => {
     GlobalApi.getCourseById(params?.courseId).then((resp) => {
       setCourseInfo(resp?.courseList);
+      checkUserCourseEnroll();
+    });
+  };
+
+  const checkUserCourseEnroll = () => {
+    GlobalApi.checkUserCourseEnrollment(
+      courseInfo?.slug,
+      user.primaryEmailAddress.emailAddress
+    ).then((resp) => {
+      if (resp?.userEnrollCourses[0]?.id) {
+        setIsUserAlreadyEnrolled(true);
+      }
     });
   };
 

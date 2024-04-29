@@ -92,14 +92,21 @@ const getCourseById = async (courseId) => {
   return await request(MASTER_URL, query);
 };
 
-const enrollToCourse = async () => {
-  const query = gql`
+const enrollToCourse = async (courseId, email) => {
+  const query =
+    gql`
     mutation MyMutation {
       createUserEnrollCourse(
         data: {
-          courseId: "asp-net-for-beginners"
-          userEmail: "tfadzwa02@gmail.com"
-          courseList: { connect: { slug: "asp-net-for-beginners" } }
+          courseId: "` +
+    courseId +
+    `"
+          userEmail: "` +
+    email +
+    `"
+          courseList: { connect: { slug: "` +
+    courseId +
+    `" } }
         }
       ) {
         id
@@ -117,9 +124,27 @@ const enrollToCourse = async () => {
   return await request(MASTER_URL, query);
 };
 
+const checkUserCourseEnrollment = async (courseId, email) => {
+  const query =
+    gql`
+    query MyQuery {
+      userEnrollCourses(where: { courseId: "` +
+    courseId +
+    `", userEmail: "` +
+    email +
+    `" }) {
+        id
+      }
+    }
+  `;
+
+  return await request(MASTER_URL, query);
+};
+
 export default {
   getAllCourseList,
   getSideBanners,
   getCourseById,
   enrollToCourse,
+  checkUserCourseEnrollment,
 };
