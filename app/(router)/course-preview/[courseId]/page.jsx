@@ -9,27 +9,30 @@ import { useUser } from "@clerk/nextjs";
 const CoursePreview = ({ params }) => {
   const [courseInfo, setCourseInfo] = useState();
   const { user } = useUser();
-  const [isUserAlreadyEnrolled, setIsUserAlreadyEnrolled] = useState(false);
+  const [isUserAlreadyEnrolled, setIsUserAlreadyEnrolled] = useState();
 
   useEffect(() => {
     params && getCourseInfoById();
   }, [params]);
 
+  useEffect(() => {
+    courseInfo && user && checkUserCourseEnroll();
+  }, [courseInfo, user]);
+
   // get course info by Slug name
   const getCourseInfoById = () => {
     GlobalApi.getCourseById(params?.courseId).then((resp) => {
       setCourseInfo(resp?.courseList);
-      checkUserCourseEnroll();
     });
   };
 
   const checkUserCourseEnroll = () => {
     GlobalApi.checkUserCourseEnrollment(
       courseInfo?.slug,
-      user.primaryEmailAddress.emailAddress
+      user?.primaryEmailAddress.emailAddress
     ).then((resp) => {
       if (resp?.userEnrollCourses[0]?.id) {
-        setIsUserAlreadyEnrolled(true);
+        setIsUserAlreadyEnrolled(resp?.userEnrollCourses[0]?.id);
       }
     });
   };
@@ -43,7 +46,10 @@ const CoursePreview = ({ params }) => {
         </div>
         {/* Course Content */}
         <div>
-          <CourseEnroll courseInfo={courseInfo} />
+          <CourseEnroll
+            courseInfo={courseInfo}
+            isUserAlreadyEnrolled={isUserAlreadyEnrolled}
+          />
           <CourseContent courseInfo={courseInfo} />
         </div>
       </div>
