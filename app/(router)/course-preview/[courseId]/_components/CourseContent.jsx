@@ -1,7 +1,7 @@
 import { Lock, Play } from "lucide-react";
 import React, { useState } from "react";
 
-const CourseContent = ({ courseInfo }) => {
+const CourseContent = ({ courseInfo, isUserAlreadyEnrolled }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
@@ -14,10 +14,10 @@ const CourseContent = ({ courseInfo }) => {
             className={`p-2 flex justify-between items-center gap-1 text-[0.875rem]
           m-2 border px-4 rounded-sm cursor-pointer hover:bg-gray-200 hover:text-gray-500 ${
             activeIndex === index && `bg-primary text-white`
-          }`}
+          } ${isUserAlreadyEnrolled && `hover:bg-primary hover:text-white`}`}
           >
             {index + 1}. {item.name}
-            {activeIndex === index ? (
+            {activeIndex === index || isUserAlreadyEnrolled ? (
               <Play className="h-4 w-4" />
             ) : (
               <Lock className="h-4 w-4" />

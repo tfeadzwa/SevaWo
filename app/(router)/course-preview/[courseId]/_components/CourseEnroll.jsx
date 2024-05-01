@@ -75,7 +75,7 @@ const CourseEnroll = ({ courseInfo, isUserAlreadyEnrolled }) => {
         {isUserAlreadyEnrolled && (
           <div>
             <h2 className="text-white">Continue to Learn Your Project</h2>
-            <Link href={"course-progress" + isUserAlreadyEnrolled}>
+            <Link href={`/course-progress/` + isUserAlreadyEnrolled}>
               <Button className="bg-white text-primary hover:bg-white hover:text-primary">
                 Continue
               </Button>
